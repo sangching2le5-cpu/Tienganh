@@ -1,0 +1,1804 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Office English – Học Tiếng Anh Văn Phòng</title>
+<style>
+  :root{
+    --bg:#f2f7fb;
+    --card:#ffffff;
+    --primary:#4a90c2;
+    --primary-dark:#35719c;
+    --primary-light:#e3f0fa;
+    --accent:#8fc4e8;
+    --text:#22333f;
+    --muted:#6b8395;
+    --ok:#3e9c6d;
+    --ok-bg:#e6f6ee;
+    --bad:#c85a5a;
+    --bad-bg:#fbeaea;
+    --border:#dce9f3;
+    --shadow:0 2px 10px rgba(74,144,194,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.65;
+    font-size:16px;
+    -webkit-text-size-adjust:100%;
+  }
+  /* ---------- Topbar ---------- */
+  .topbar{
+    position:sticky;top:0;z-index:50;
+    background:rgba(255,255,255,.94);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--border);
+  }
+  .topbar-inner{
+    max-width:960px;margin:0 auto;
+    display:flex;align-items:center;gap:10px;
+    padding:10px 14px;
+    flex-wrap:wrap;
+  }
+  .brand{
+    font-weight:700;font-size:1.05rem;color:var(--primary-dark);
+    display:flex;align-items:center;gap:8px;margin-right:auto;
+    letter-spacing:.2px;
+  }
+  .brand .dot{
+    width:26px;height:26px;border-radius:9px;
+    background:linear-gradient(135deg,#8fc4e8,#4a90c2);
+    display:inline-block;flex:none;
+  }
+  .nav-btn{
+    border:1px solid var(--border);
+    background:#fff;color:var(--primary-dark);
+    border-radius:10px;padding:8px 13px;
+    font-size:.87rem;font-weight:600;cursor:pointer;
+    transition:.15s;min-height:38px;
+    font-family:inherit;
+  }
+  .nav-btn:hover{background:var(--primary-light);}
+  .nav-btn.active{background:var(--primary);color:#fff;border-color:var(--primary);}
+  .nav-btn.danger{color:#b04a4a;border-color:#f0d5d5;}
+  .nav-btn.danger:hover{background:#fbeaea;}
+  /* ---------- Layout ---------- */
+  main{max-width:960px;margin:0 auto;padding:16px 14px 70px;}
+  h1{font-size:1.5rem;margin:8px 0 4px;line-height:1.3;}
+  h2{font-size:1.2rem;margin:0 0 10px;line-height:1.35;}
+  h3{font-size:1.02rem;margin:16px 0 8px;}
+  p{margin:0 0 11px;}
+  .muted{color:var(--muted);font-size:.9rem;}
+  .card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:16px;
+    box-shadow:var(--shadow);
+    margin-bottom:14px;
+  }
+  .page-head{margin-bottom:14px;}
+  .page-head p{margin:2px 0 0;}
+  /* ---------- Home unit cards ---------- */
+  .unit-grid{display:grid;grid-template-columns:1fr;gap:13px;}
+  @media(min-width:700px){.unit-grid{grid-template-columns:1fr 1fr;}}
+  .unit-card{
+    background:var(--card);border:1px solid var(--border);
+    border-radius:var(--radius);padding:15px;
+    box-shadow:var(--shadow);cursor:pointer;
+    transition:.15s;display:flex;flex-direction:column;gap:8px;
+  }
+  .unit-card:hover{border-color:var(--accent);transform:translateY(-2px);}
+  .unit-card h3{margin:0;font-size:1.05rem;color:var(--primary-dark);}
+  .unit-card .summary{font-size:.9rem;color:var(--muted);min-height:2.4em;}
+  .badge{
+    display:inline-block;font-size:.72rem;font-weight:700;
+    padding:3px 9px;border-radius:20px;letter-spacing:.3px;
+    text-transform:uppercase;
+  }
+  .badge.new{background:#eef2f6;color:#7b8fa0;}
+  .badge.doing{background:#fff3dd;color:#a97a20;}
+  .badge.done{background:var(--ok-bg);color:var(--ok);}
+  .badge.blue{background:var(--primary-light);color:var(--primary-dark);}
+  .progress-outer{
+    height:9px;background:#e9f1f7;border-radius:20px;overflow:hidden;
+  }
+  .progress-inner{
+    height:100%;background:linear-gradient(90deg,#8fc4e8,#4a90c2);
+    border-radius:20px;transition:width .3s;
+  }
+  .progress-label{font-size:.78rem;color:var(--muted);display:flex;justify-content:space-between;}
+  /* ---------- Tabs ---------- */
+  .tabs{
+    display:flex;gap:6px;overflow-x:auto;padding:4px 2px 8px;
+    -webkit-overflow-scrolling:touch;scrollbar-width:thin;
+  }
+  .tab{
+    flex:none;border:1px solid var(--border);background:#fff;
+    color:var(--primary-dark);border-radius:22px;
+    padding:8px 14px;font-size:.85rem;font-weight:600;
+    cursor:pointer;white-space:nowrap;font-family:inherit;
+    min-height:38px;
+  }
+  .tab.active{background:var(--primary);color:#fff;border-color:var(--primary);}
+  /* ---------- Buttons ---------- */
+  .btn{
+    border-radius:10px;padding:10px 16px;font-size:.9rem;
+    font-weight:600;cursor:pointer;border:1px solid transparent;
+    font-family:inherit;min-height:42px;transition:.15s;
+  }
+  .btn.primary{background:var(--primary);color:#fff;}
+  .btn.primary:hover{background:var(--primary-dark);}
+  .btn.ghost{background:#fff;color:var(--primary-dark);border-color:var(--border);}
+  .btn.ghost:hover{background:var(--primary-light);}
+  .btn.small{padding:7px 12px;font-size:.82rem;min-height:36px;}
+  .btn-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;}
+  /* ---------- Reading ---------- */
+  .reading h2{color:var(--primary-dark);}
+  .byline{font-style:italic;color:var(--muted);font-size:.9rem;margin-bottom:12px;}
+  .reading p{text-align:left;}
+  .reading ul{margin:0 0 12px;padding-left:22px;}
+  .reading li{margin-bottom:5px;}
+  .reading .sec-title{font-weight:700;color:var(--primary-dark);margin-top:14px;}
+  .read-banner{
+    display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+    background:var(--primary-light);border-radius:10px;
+    padding:10px 12px;margin-bottom:14px;font-size:.88rem;
+  }
+  /* ---------- Exercises ---------- */
+  .ex-head{display:flex;align-items:flex-start;gap:9px;flex-wrap:wrap;margin-bottom:10px;}
+  .ex-head h3{margin:0;flex:1 1 200px;font-size:1rem;}
+  .tag{
+    background:var(--primary-light);color:var(--primary-dark);
+    font-size:.72rem;font-weight:700;padding:3px 9px;border-radius:20px;
+    white-space:nowrap;
+  }
+  .tag.sup{background:#fdf1e0;color:#a97a20;}
+  .tag.src{background:#e8f4ec;color:#3e7d5b;}
+  .option-list{
+    list-style:none;padding:0;margin:0 0 14px;
+    background:#f7fbfe;border:1px dashed var(--border);
+    border-radius:10px;padding:11px 13px;font-size:.89rem;
+  }
+  .option-list li{margin-bottom:5px;}
+  .option-list li:last-child{margin-bottom:0;}
+  .item{
+    border-top:1px solid #eef4f9;padding:11px 0;
+  }
+  .item:first-of-type{border-top:none;}
+  .item-label{font-weight:600;margin-bottom:7px;font-size:.94rem;}
+  .item-label .num{color:var(--primary);margin-right:5px;}
+  select, input[type=text], textarea{
+    width:100%;font-family:inherit;font-size:.94rem;
+    border:1px solid var(--border);border-radius:9px;
+    padding:10px 11px;background:#fff;color:var(--text);
+    min-height:42px;
+  }
+  select:focus, input:focus, textarea:focus{
+    outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent);
+  }
+  textarea{min-height:110px;resize:vertical;line-height:1.6;}
+  .opt-row{
+    display:flex;align-items:flex-start;gap:9px;
+    padding:9px 11px;border:1px solid var(--border);border-radius:9px;
+    margin-bottom:7px;cursor:pointer;background:#fff;
+  }
+  .opt-row:hover{background:#f7fbfe;}
+  .opt-row input{margin-top:4px;flex:none;width:18px;height:18px;accent-color:var(--primary);}
+  .opt-row span{font-size:.92rem;}
+  .opt-row.selected{border-color:var(--accent);background:var(--primary-light);}
+  .opt-row.correct{border-color:#a8dcc0;background:var(--ok-bg);}
+  .opt-row.wrong{border-color:#eab8b8;background:var(--bad-bg);}
+  .fb{
+    margin-top:8px;font-size:.87rem;border-radius:9px;
+    padding:9px 11px;line-height:1.55;
+  }
+  .fb.ok{background:var(--ok-bg);color:#2c6e4f;}
+  .fb.bad{background:var(--bad-bg);color:#93443f;}
+  .fb .exp{color:var(--text);font-size:.85rem;margin-top:5px;opacity:.92;}
+  .score-box{
+    display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+    background:#f7fbfe;border:1px solid var(--border);
+    border-radius:10px;padding:10px 13px;margin-top:12px;font-size:.92rem;
+  }
+  .score-box b{font-size:1.05rem;}
+  .ex-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;}
+  .hidden{display:none !important;}
+  .answer-key-item{
+    border-bottom:1px solid #eef4f9;padding:10px 0;font-size:.9rem;
+  }
+  .answer-key-item:last-child{border-bottom:none;}
+  .ak-q{font-weight:600;margin-bottom:4px;}
+  .ak-a{color:var(--ok);font-weight:700;}
+  .ak-exp{color:var(--muted);font-size:.85rem;margin-top:3px;}
+  /* ---------- Dashboard ---------- */
+  .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:14px;}
+  @media(min-width:640px){.stat-grid{grid-template-columns:repeat(4,1fr);}}
+  .stat{
+    background:var(--card);border:1px solid var(--border);
+    border-radius:12px;padding:13px;text-align:center;box-shadow:var(--shadow);
+  }
+  .stat .num{font-size:1.5rem;font-weight:700;color:var(--primary-dark);line-height:1.2;}
+  .stat .lbl{font-size:.78rem;color:var(--muted);}
+  .wrong-item{
+    border:1px solid var(--border);border-radius:10px;padding:11px;
+    margin-bottom:9px;background:#fff;cursor:pointer;font-size:.88rem;
+  }
+  .wrong-item:hover{border-color:var(--accent);background:#f7fbfe;}
+  .wrong-item .q{font-weight:600;margin-bottom:4px;}
+  .wrong-item .a{color:var(--bad);}
+  .wrong-item .c{color:var(--ok);}
+  .empty-note{
+    text-align:center;color:var(--muted);font-size:.9rem;
+    padding:22px 10px;background:#f8fbfd;border-radius:10px;
+  }
+  .model-answer{
+    background:#f7fbfe;border-left:3px solid var(--accent);
+    border-radius:0 10px 10px 0;padding:12px 14px;margin-top:10px;
+    font-size:.9rem;
+  }
+  .model-answer .en{color:var(--primary-dark);font-weight:600;margin-bottom:6px;}
+  .model-answer .vi{color:var(--muted);font-style:italic;}
+  .model-answer .hints{margin-top:9px;font-size:.85rem;}
+  .model-answer .hints ul{margin:5px 0 0;padding-left:20px;}
+  .back-btn{margin-bottom:12px;}
+  .divider{height:1px;background:var(--border);margin:18px 0;}
+  .note{
+    background:#fff8e8;border:1px solid #f3e2bf;color:#8a6a1f;
+    border-radius:10px;padding:10px 12px;font-size:.85rem;margin-bottom:12px;
+  }
+  .footer-note{
+    text-align:center;color:var(--muted);font-size:.8rem;
+    padding:20px 10px 0;
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><span class="dot"></span> Office English</div>
+    <button class="nav-btn" data-nav="home">Trang chủ</button>
+    <button class="nav-btn" data-nav="dashboard">Tiến độ</button>
+    <button class="nav-btn danger" id="resetBtn">Reset</button>
+  </div>
+</header>
+
+<main id="app"></main>
+
+<script>
+/* =========================================================
+   OFFICE ENGLISH – WEB APP
+   Dữ liệu bài học lấy nguyên văn từ tài liệu gốc đã cung cấp.
+   Phần "Reading Comprehension" được đánh dấu rõ là BỔ SUNG.
+   ========================================================= */
+
+/* ------------------- DỮ LIỆU BÀI HỌC ------------------- */
+
+const UNITS = [
+  /* ==================== UNIT 1 ==================== */
+  {
+    id: 'u1',
+    title: 'Unit 1. Office Supplies',
+    summary: 'Đồ dùng văn phòng, người phụ trách đặt hàng và tiết kiệm chi phí.',
+    reading: {
+      blocks: [
+        { t:'h2', v:'Who’s In Charge of the Supplies?' },
+        { t:'byline', v:'By Polly Evans' },
+        { t:'p', v:'Some businesses let employees order their own supplies. But this is a bad idea.' },
+        { t:'p', v:'Why? After all, employees need pens, tape and folders to do their jobs. But businesses lose money this way. It is better to have one person in charge of purchasing supplies.' },
+        { t:'p', v:'On a set date every month, employees give the person in charge lists of what they need. Then, he or she places an order for staples, paperclips, correction fluid and other necessary items. Everything arrives at the same time. This saves money on shipping charges. Also, many office supply stores give discounts for larger orders.' }
+      ]
+    },
+    comprehension: {
+      id: 'u1-rc',
+      label: 'Reading Comprehension',
+      title: 'Đọc hiểu bài “Who’s In Charge of the Supplies?”',
+      supplementary: true,
+      type: 'choice',
+      items: [
+        {
+          id: 'q1',
+          prompt: 'What is the main idea of the reading?',
+          options: [
+            { key:'A', text:'Employees should order their own office supplies.' },
+            { key:'B', text:'It is better to have one person in charge of purchasing supplies.' },
+            { key:'C', text:'Office supply stores never give discounts.' }
+          ],
+          correct: 'B',
+          explanation: 'Bài đọc khẳng định việc để nhân viên tự đặt đồ dùng là “a bad idea” và tốt hơn là có một người chịu trách nhiệm mua đồ dùng văn phòng.'
+        },
+        {
+          id: 'q2',
+          prompt: 'According to the article, what happens when employees order their own supplies?',
+          options: [
+            { key:'A', text:'Businesses lose money.' },
+            { key:'B', text:'Employees work faster.' },
+            { key:'C', text:'Shipping charges become lower.' }
+          ],
+          correct: 'A',
+          explanation: 'Bài đọc viết: “But businesses lose money this way.” – Công ty bị mất tiền khi mỗi nhân viên tự đặt hàng riêng.'
+        },
+        {
+          id: 'q3',
+          prompt: 'What are the benefits of having one person place a single large order?',
+          options: [
+            { key:'A', text:'Everything arrives at different times.' },
+            { key:'B', text:'It saves money on shipping charges and can get discounts on large orders.' },
+            { key:'C', text:'Employees do not need pens or folders anymore.' }
+          ],
+          correct: 'B',
+          explanation: 'Bài đọc nêu: hàng về cùng một lúc → tiết kiệm phí vận chuyển, và nhiều cửa hàng văn phòng phẩm giảm giá cho đơn hàng lớn.'
+        }
+      ]
+    },
+    exercises: [
+      {
+        id: 'u1-e3',
+        label: 'Exercise ③',
+        source: true,
+        title: 'Match the words (1–7) with the definitions (A–G).',
+        type: 'select',
+        optionsIntro: 'Các định nghĩa A–G:',
+        options: [
+          { key:'A', text:'A. a request for products' },
+          { key:'B', text:'B. an object that slides over papers to keep them together' },
+          { key:'C', text:'C. a sticky material that keeps objects together' },
+          { key:'D', text:'D. an object to store and organize papers in' },
+          { key:'E', text:'E. a place that sells business supplies' },
+          { key:'F', text:'F. responsible for something' },
+          { key:'G', text:'G. a metal object pressed through papers to hold them together' }
+        ],
+        items: [
+          { id:'folder', label:'folder', correct:'D', explanation:'Folder = bìa đựng hồ sơ, dùng để lưu trữ và sắp xếp giấy tờ.' },
+          { id:'in charge of', label:'in charge of', correct:'F', explanation:'In charge of = chịu trách nhiệm về việc gì đó.' },
+          { id:'paperclip', label:'paperclip', correct:'B', explanation:'Paperclip = kẹp giấy, dùng để giữ các tờ giấy với nhau.' },
+          { id:'office supply store', label:'office supply store', correct:'E', explanation:'Office supply store = cửa hàng bán đồ dùng văn phòng.' },
+          { id:'tape', label:'tape', correct:'C', explanation:'Tape = băng dính, chất dính dùng để dán các vật lại với nhau.' },
+          { id:'staple', label:'staple', correct:'G', explanation:'Staple = ghim bấm giấy bằng kim loại, đâm xuyên qua giấy để giữ lại.' },
+          { id:'order', label:'order', correct:'A', explanation:'Order = đơn đặt hàng, yêu cầu mua sản phẩm.' }
+        ]
+      },
+      {
+        id: 'u1-e4',
+        label: 'Exercise ④',
+        source: true,
+        title: 'Write a word that is similar in meaning to the underlined part.',
+        type: 'fill',
+        items: [
+          {
+            id:'1',
+            prompt:'Joan needs a new bottle of white liquid used for covering mistakes.',
+            hint:'c - - - - c - i - n - - - l - - d',
+            accept:['correction fluid','correction-fluid','correctionfluid'],
+            display:'correction fluid',
+            explanation:'Chất lỏng màu trắng dùng để che lỗi viết hoặc lỗi đánh máy → correction fluid (bút xóa / dung dịch xóa).'
+          },
+          {
+            id:'2',
+            prompt:'Are the new things needed to work here? I’m out of staples.',
+            hint:'- - p - - - s',
+            accept:['supplies','supply'],
+            display:'supplies',
+            explanation:'Những vật dụng cần thiết để làm việc, chẳng hạn như giấy, bút và ghim → supplies (đồ dùng, vật tư).'
+          },
+          {
+            id:'3',
+            prompt:'My writing object is out of ink, so I need a new one.',
+            hint:'- - e -',
+            accept:['pen'],
+            display:'pen',
+            explanation:'Dụng cụ viết mà người nói cần thay mới vì đã hết mực → pen (bút mực).'
+          }
+        ]
+      }
+    ],
+    openQuestions: [
+      {
+        id:'q1',
+        question:'What supplies does a secretary use at work?',
+        model:'A secretary uses pens, paper, folders, tape, staples, paperclips and correction fluid at work.',
+        vi:'Thư ký sử dụng bút, giấy, bìa hồ sơ, băng dính, ghim bấm giấy, kẹp giấy và bút xóa tại nơi làm việc.',
+        hints:['use (v): sử dụng','office supplies: đồ dùng văn phòng','at work: tại nơi làm việc']
+      },
+      {
+        id:'q2',
+        question:'Where can you purchase supplies?',
+        model:'You can purchase office supplies at an office supply store or online.',
+        vi:'Bạn có thể mua đồ dùng văn phòng tại cửa hàng văn phòng phẩm hoặc trực tuyến.',
+        hints:['purchase (v): mua','office supply store: cửa hàng văn phòng phẩm','online: trực tuyến']
+      },
+      {
+        id:'q3',
+        question:'Is it good for employee to order their own supplies? Why?',
+        model:'No, it isn’t. It is better to have one person in charge of ordering supplies because it saves money on shipping charges and helps the company get discounts on large orders.',
+        vi:'Không. Tốt hơn là nên có một người chịu trách nhiệm đặt mua đồ dùng văn phòng vì điều đó giúp tiết kiệm phí vận chuyển và giúp công ty nhận được chiết khấu khi đặt hàng số lượng lớn.',
+        hints:['in charge of: chịu trách nhiệm','order supplies: đặt mua đồ dùng','save money: tiết kiệm tiền','shipping charges: phí vận chuyển','discount: giảm giá, chiết khấu'],
+        note:'Câu hỏi gốc dùng “employee”. Cách diễn đạt tự nhiên hơn khi nói chung về nhân viên là: “Is it good for employees to order their own supplies?”'
+      }
+    ]
+  },
+
+  /* ==================== UNIT 2 ==================== */
+  {
+    id: 'u2',
+    title: 'Unit 2. Office Furniture',
+    summary: 'Đồ nội thất văn phòng, kiểu dáng, giao hàng và phí giao hàng.',
+    reading: {
+      blocks: [
+        { t:'h2', v:'Spring into Spring' },
+        { t:'p', v:'Spring Sales at Bradley’s!', cls:'sec-title' },
+        { t:'p', v:'Welcome to Bradley’s! Bradley’s is an office furniture retailer based in Chicago. We sell everything that you need for your office, from coat racks to filing cabinets. With over 60 years’ experience, we know what you need. Need a new office desk? How about a reception desk? No problem. We have them! We also have a large selection of shelves which come in wood or metal. Come in and check out our brand new line of office chairs. Bradley’s offers different furniture styles, from traditional to modern. We also deliver to your home or office, Mondays through Fridays. (Delivery charges do apply.)' }
+      ]
+    },
+    comprehension: {
+      id: 'u2-rc',
+      label: 'Reading Comprehension',
+      title: 'Đọc hiểu bài “Spring into Spring”',
+      supplementary: true,
+      type: 'choice',
+      items: [
+        {
+          id:'q1',
+          prompt:'What kind of business is Bradley’s?',
+          options:[
+            { key:'A', text:'A law firm' },
+            { key:'B', text:'An office furniture retailer' },
+            { key:'C', text:'A clothing store' }
+          ],
+          correct:'B',
+          explanation:'Bài đọc nói rõ: “Bradley’s is an office furniture retailer based in Chicago.”'
+        },
+        {
+          id:'q2',
+          prompt:'How long has Bradley’s been in business?',
+          options:[
+            { key:'A', text:'Over 6 years' },
+            { key:'B', text:'Over 60 years' },
+            { key:'C', text:'Over 16 years' }
+          ],
+          correct:'B',
+          explanation:'“With over 60 years’ experience” – hơn 60 năm kinh nghiệm.'
+        },
+        {
+          id:'q3',
+          prompt:'What materials do Bradley’s shelves come in?',
+          options:[
+            { key:'A', text:'Wood or metal' },
+            { key:'B', text:'Plastic or glass' },
+            { key:'C', text:'Leather or fabric' }
+          ],
+          correct:'A',
+          explanation:'“a large selection of shelves which come in wood or metal”.'
+        },
+        {
+          id:'q4',
+          prompt:'When does Bradley’s deliver?',
+          options:[
+            { key:'A', text:'Every day of the week' },
+            { key:'B', text:'Mondays through Fridays' },
+            { key:'C', text:'Weekends only' }
+          ],
+          correct:'B',
+          explanation:'“We also deliver to your home or office, Mondays through Fridays.”'
+        },
+        {
+          id:'q5',
+          prompt:'Does delivery cost extra?',
+          options:[
+            { key:'A', text:'No, delivery is free.' },
+            { key:'B', text:'Yes, delivery charges do apply.' },
+            { key:'C', text:'Only on weekends.' }
+          ],
+          correct:'B',
+          explanation:'Câu cuối bài đọc ghi trong ngoặc: “(Delivery charges do apply.)” – phí giao hàng vẫn được tính.'
+        }
+      ]
+    },
+    exercises: [
+      {
+        id:'u2-e3',
+        label:'Exercise ③',
+        source:true,
+        title:'Place the words and phrases from the word bank under the correct heading.',
+        type:'select',
+        optionsIntro:'Hai nhóm: Furniture (Đồ nội thất) và Styles (Kiểu dáng).',
+        options:[
+          { key:'Furniture', text:'Furniture' },
+          { key:'Styles', text:'Styles' }
+        ],
+        items:[
+          { id:'reception desk', label:'reception desk', correct:'Furniture', explanation:'Reception desk = quầy lễ tân – đây là một món đồ nội thất.' },
+          { id:'traditional', label:'traditional', correct:'Styles', explanation:'Traditional = truyền thống – đây là một kiểu dáng/phong cách.' },
+          { id:'shelf', label:'shelf', correct:'Furniture', explanation:'Shelf = kệ, giá để đồ – một món đồ nội thất.' },
+          { id:'modern', label:'modern', correct:'Styles', explanation:'Modern = hiện đại – đây là một kiểu dáng/phong cách.' },
+          { id:'office desk', label:'office desk', correct:'Furniture', explanation:'Office desk = bàn làm việc – một món đồ nội thất.' },
+          { id:'office chair', label:'office chair', correct:'Furniture', explanation:'Office chair = ghế văn phòng – một món đồ nội thất.' }
+        ]
+      },
+      {
+        id:'u2-e4',
+        label:'Exercise ④',
+        source:true,
+        title:'Check (✓) the sentence that uses the underlined parts correctly.',
+        type:'choice',
+        items:[
+          {
+            id:'1',
+            prompt:'Câu nào dùng đúng phần được gạch chân?',
+            options:[
+              { key:'A', text:'Check out these new desks.' },
+              { key:'B', text:'Store these files in that office chair.' }
+            ],
+            correct:'A',
+            explanation:'“Check out” = xem thử, kiểm tra → “Hãy xem những chiếc bàn mới này.” hợp ngữ cảnh.',
+            wrongExplanations:{ B:'Hồ sơ không được cất trong ghế văn phòng; hồ sơ phải để trong filing cabinet.' }
+          },
+          {
+            id:'2',
+            prompt:'Câu nào dùng đúng phần được gạch chân?',
+            options:[
+              { key:'A', text:'My office desk is uncomfortable to sit in.' },
+              { key:'B', text:'Hang your jacket on the coat rack.' }
+            ],
+            correct:'B',
+            explanation:'Coat rack = giá treo áo khoác → “Hãy treo áo khoác của bạn lên giá.” là câu đúng.',
+            wrongExplanations:{ A:'Không dùng “sit in an office desk”. Người ta “sit at an office desk” (ngồi ở bàn làm việc).' }
+          },
+          {
+            id:'3',
+            prompt:'Câu nào dùng đúng phần được gạch chân?',
+            options:[
+              { key:'A', text:'This is my great-grandfather’s desk. It’s very modern.' },
+              { key:'B', text:'You organize folders in a filing cabinet.' }
+            ],
+            correct:'B',
+            explanation:'Filing cabinet = tủ hồ sơ, nơi lưu trữ và sắp xếp các bìa hồ sơ → câu B đúng.',
+            wrongExplanations:{ A:'Về ngữ pháp câu A vẫn có thể đúng, nhưng ngữ cảnh “bàn của ông cố” thường gợi ý phong cách truyền thống (traditional) hơn là hiện đại (modern). Đáp án của tài liệu là B.' }
+          },
+          {
+            id:'4',
+            prompt:'Câu nào dùng đúng phần được gạch chân?',
+            options:[
+              { key:'A', text:'The shoes come in black and brown.' },
+              { key:'B', text:'This shelf has six drawers and a matching chair.' }
+            ],
+            correct:'A',
+            explanation:'Cấu trúc “come in + màu sắc/kích cỡ/kiểu dáng” dùng để nói có nhiều phiên bản khác nhau. Ví dụ: This shirt comes in three colours.',
+            wrongExplanations:{ B:'“Shelf” (kệ) không được mô tả là có sáu ngăn kéo và một chiếc ghế đi kèm – đó không phải cách mô tả thông thường.' }
+          }
+        ]
+      }
+    ],
+    openQuestions: [
+      {
+        id:'q4',
+        question:'What furniture is usually in an office?',
+        model:'There are usually office desks, office chairs, reception desks, shelves, coat racks and filing cabinets in an office.',
+        vi:'Trong văn phòng thường có bàn làm việc, ghế văn phòng, quầy lễ tân, kệ, giá treo áo khoác và tủ hồ sơ.',
+        hints:['office desk: bàn làm việc','office chair: ghế văn phòng','reception desk: quầy lễ tân','shelf: kệ','coat rack: giá treo áo khoác','filing cabinet: tủ hồ sơ']
+      },
+      {
+        id:'q5',
+        question:'Where are some places you can buy office furniture?',
+        model:'You can buy office furniture at furniture stores, office furniture retailers or online.',
+        vi:'Bạn có thể mua nội thất văn phòng tại các cửa hàng nội thất, nhà bán lẻ nội thất văn phòng hoặc trực tuyến.',
+        hints:['office furniture: nội thất văn phòng','furniture store: cửa hàng nội thất','retailer: nhà bán lẻ']
+      }
+    ]
+  },
+
+  /* ==================== UNIT 5 ==================== */
+  {
+    id: 'u5',
+    title: 'Unit 5. Office Documents',
+    summary: 'Nhiệm vụ thư ký, tài liệu, biểu mẫu và các mẫu câu công việc.',
+    reading: {
+      blocks: [
+        { t:'h2', v:'LegalJobsRUs.com' },
+        { t:'p', v:'Company: BATES AND BURNS LAW FIRM', cls:'sec-title' },
+        { t:'p', v:'Want a great job? Here it is. We want a secretary with great people and computer skills. We need a good organizer who can:' },
+        { t:'ul', items:[
+          'Prepare legal documents',
+          'Send faxes and send out memos',
+          'Keep track of receipts and payments',
+          'Write excellent business letters',
+          'Fill out many forms, including order forms for office supplies'
+        ]},
+        { t:'p', v:'Answering the phone and greeting clients is also important. We want someone who is friendly and energetic. Interested? Please contact Mr. Bates at bates.joe@yourbestlawyer.com' }
+      ]
+    },
+    comprehension: {
+      id:'u5-rc',
+      label:'Reading Comprehension',
+      title:'Đọc hiểu bài “LegalJobsRUs.com”',
+      supplementary:true,
+      type:'choice',
+      items:[
+        {
+          id:'q1',
+          prompt:'What position is Bates and Burns Law Firm hiring for?',
+          options:[
+            { key:'A', text:'A lawyer' },
+            { key:'B', text:'A secretary' },
+            { key:'C', text:'An accountant' }
+          ],
+          correct:'B',
+          explanation:'“We want a secretary with great people and computer skills.”'
+        },
+        {
+          id:'q2',
+          prompt:'Which of the following is NOT listed as a duty in the advertisement?',
+          options:[
+            { key:'A', text:'Prepare legal documents' },
+            { key:'B', text:'Keep track of receipts and payments' },
+            { key:'C', text:'Sell office furniture' }
+          ],
+          correct:'C',
+          explanation:'Bán nội thất văn phòng thuộc về Unit 2 (Bradley’s), không có trong quảng cáo tuyển dụng của Bates and Burns.'
+        },
+        {
+          id:'q3',
+          prompt:'How should interested people contact the firm?',
+          options:[
+            { key:'A', text:'By calling Mr. Bates on the phone' },
+            { key:'B', text:'By emailing Mr. Bates at bates.joe@yourbestlawyer.com' },
+            { key:'C', text:'By visiting the office in person' }
+          ],
+          correct:'B',
+          explanation:'Bài đọc ghi: “Please contact Mr. Bates at bates.joe@yourbestlawyer.com”.'
+        }
+      ]
+    },
+    exercises: [
+      {
+        id:'u5-e3',
+        label:'Exercise ③',
+        source:true,
+        title:'Fill in the blanks with the correct words and phrases from the word bank.',
+        type:'fill',
+        wordBank:['order form','fill out','keep track of','fax','prepare','documents'],
+        items:[
+          {
+            id:'1',
+            prompt:'It’s important to __________ important documents so you don’t lose them.',
+            accept:['keep track of'],
+            display:'keep track of',
+            explanation:'Keep track of = theo dõi, ghi chép để quản lý. “Điều quan trọng là phải theo dõi các tài liệu quan trọng để bạn không làm mất chúng.”'
+          },
+          {
+            id:'2',
+            prompt:'It is easier and faster to __________ documents than mail them.',
+            accept:['fax'],
+            display:'fax',
+            explanation:'Fax = gửi tài liệu bằng máy fax. Gửi fax nhanh và dễ hơn gửi thư thường.'
+          },
+          {
+            id:'3',
+            prompt:'A secretary has to prepare and organize many __________.',
+            accept:['documents'],
+            display:'documents',
+            explanation:'Documents = tài liệu, văn bản. Thư ký phải chuẩn bị và sắp xếp nhiều tài liệu.'
+          },
+          {
+            id:'4',
+            prompt:'Complete the __________ for new office supplies.',
+            accept:['order form'],
+            display:'order form',
+            explanation:'Order form = phiếu đặt hàng, mẫu đơn dùng để đặt mua đồ dùng văn phòng.'
+          },
+          {
+            id:'5',
+            prompt:'__________ this form with your name and address.',
+            accept:['fill out','fill in','complete'],
+            display:'Fill out',
+            explanation:'Fill out = điền vào biểu mẫu. “Hãy điền tên và địa chỉ của bạn vào mẫu này.”'
+          },
+          {
+            id:'6',
+            prompt:'Please __________ the document for Mr. Bates and put it on his desk.',
+            accept:['prepare'],
+            display:'prepare',
+            explanation:'Prepare = chuẩn bị hoặc soạn thảo. “Hãy chuẩn bị tài liệu cho ông Bates và đặt lên bàn ông ấy.”'
+          }
+        ]
+      },
+      {
+        id:'u5-e4',
+        label:'Exercise ④',
+        source:true,
+        title:'Place a check (✓) next to the correct answer.',
+        type:'choice',
+        items:[
+          {
+            id:'1',
+            prompt:'Can you send out an email about the meeting tomorrow?',
+            options:[
+              { key:'A', text:'Yes, I just need to turn on my computer.' },
+              { key:'B', text:'Sure, the phone is right over there.' }
+            ],
+            correct:'A',
+            explanation:'Để gửi email, người nói cần dùng máy tính. Phương án B nói về điện thoại nên không phù hợp.',
+            wrongExplanations:{ B:'“The phone is right over there” liên quan đến gọi điện, không liên quan đến việc gửi email.' }
+          },
+          {
+            id:'2',
+            prompt:'Can you give me a receipt?',
+            options:[
+              { key:'A', text:'I’ll take two, please.' },
+              { key:'B', text:'Yes, let me print it out.' }
+            ],
+            correct:'B',
+            explanation:'Receipt = biên lai xác nhận giao dịch hoặc thanh toán. Người trả lời đồng ý in biên lai.',
+            wrongExplanations:{ A:'“I’ll take two, please” là câu dùng khi mua hàng, không phải phản hồi cho yêu cầu đưa biên lai.' }
+          },
+          {
+            id:'3',
+            prompt:'Please type up a business letter for me.',
+            options:[
+              { key:'A', text:'I’ll read it right away.' },
+              { key:'B', text:'Who shall I address it to?' }
+            ],
+            correct:'B',
+            explanation:'Type up = đánh máy hoàn chỉnh; address a letter to somebody = ghi thư gửi cho ai. Hỏi người nhận là phản hồi hợp lý khi được yêu cầu soạn thư.',
+            wrongExplanations:{ A:'“I’ll read it right away” là đọc, không phải soạn/đánh máy thư.' }
+          }
+        ]
+      }
+    ],
+    openQuestions: [
+      {
+        id:'q6',
+        question:'What are the duties of a secretary?',
+        model:'A secretary prepares legal documents, sends faxes and memos, keeps track of receipts and payments, writes business letters, fills out forms, answers the phone and greets clients.',
+        vi:'Thư ký chuẩn bị các văn bản pháp lý, gửi fax và bản ghi nhớ, theo dõi biên lai và khoản thanh toán, viết thư thương mại, điền biểu mẫu, trả lời điện thoại và chào đón khách hàng.',
+        hints:['duties: nhiệm vụ','prepare documents: chuẩn bị tài liệu','keep track of: theo dõi','fill out forms: điền biểu mẫu','answer the phone: trả lời điện thoại','greet clients: chào đón khách hàng']
+      }
+    ]
+  },
+
+  /* ==================== UNIT 10 ==================== */
+  {
+    id: 'u10',
+    title: 'Unit 10. Qualities of a Good Employee',
+    summary: 'Phẩm chất của nhân viên giỏi: chăm chỉ, hiệu quả, đáng tin cậy, lịch sự.',
+    reading: {
+      blocks: [
+        { t:'h2', v:'GREENWAY LTD.' },
+        { t:'p', v:'Are you hard-working and organized? If so, we have a great job for you! Our law firm is looking for an efficient and reliable personal assistant (PA) to join our team.' },
+        { t:'p', v:'The successful applicant will:', cls:'sec-title' },
+        { t:'ul', items:[
+          'be a qualified PA or have two years’ office experience',
+          'have good grammar and spelling',
+          'have a typing speed of at least 50 words per minute',
+          'have a friendly and polite telephone manner',
+          'be familiar with office computer software'
+        ]},
+        { t:'p', v:'To apply, please email Janet Freeman at hr@greenway.com for an application form.' },
+        { t:'p', v:'$22,000 yearly 37 hours per week' }
+      ]
+    },
+    comprehension: {
+      id:'u10-rc',
+      label:'Reading Comprehension',
+      title:'Đọc hiểu bài “GREENWAY LTD.”',
+      supplementary:true,
+      type:'choice',
+      items:[
+        {
+          id:'q1',
+          prompt:'What job is Greenway Ltd. advertising?',
+          options:[
+            { key:'A', text:'A graphic designer' },
+            { key:'B', text:'A personal assistant (PA)' },
+            { key:'C', text:'A salesperson' }
+          ],
+          correct:'B',
+          explanation:'“Our law firm is looking for an efficient and reliable personal assistant (PA) to join our team.”'
+        },
+        {
+          id:'q2',
+          prompt:'What is the minimum typing speed required?',
+          options:[
+            { key:'A', text:'40 words per minute' },
+            { key:'B', text:'50 words per minute' },
+            { key:'C', text:'60 words per minute' }
+          ],
+          correct:'B',
+          explanation:'“have a typing speed of at least 50 words per minute” – tối thiểu 50 từ/phút.'
+        },
+        {
+          id:'q3',
+          prompt:'What is the yearly salary?',
+          options:[
+            { key:'A', text:'$22,000' },
+            { key:'B', text:'$20,000' },
+            { key:'C', text:'$32,000' }
+          ],
+          correct:'A',
+          explanation:'Cuối bài đọc ghi: “$22,000 yearly 37 hours per week”.'
+        },
+        {
+          id:'q4',
+          prompt:'How many hours per week is the job?',
+          options:[
+            { key:'A', text:'35 hours' },
+            { key:'B', text:'37 hours' },
+            { key:'C', text:'40 hours' }
+          ],
+          correct:'B',
+          explanation:'“37 hours per week” – 37 giờ mỗi tuần.'
+        }
+      ]
+    },
+    exercises: [
+      {
+        id:'u10-e3',
+        label:'Exercise ③',
+        source:true,
+        title:'Read the sentence pairs. Choose where the words best fit in the blanks.',
+        type:'select',
+        items:[
+          {
+            id:'1a', label:'1a. This certificate shows that I am a __________ personal assistant.',
+            options:[{key:'hard-working',text:'hard-working'},{key:'qualified',text:'qualified'}],
+            correct:'qualified',
+            explanation:'Qualified = có đủ trình độ hoặc bằng cấp cần thiết. Chứng chỉ (certificate) chứng minh trình độ → qualified.'
+          },
+          {
+            id:'1b', label:'1b. Jane is __________ and never leaves the office until her work is complete.',
+            options:[{key:'hard-working',text:'hard-working'},{key:'qualified',text:'qualified'}],
+            correct:'hard-working',
+            explanation:'Hard-working = chăm chỉ, làm việc cần mẫn. Việc không rời văn phòng cho đến khi xong việc thể hiện sự chăm chỉ.'
+          },
+          {
+            id:'2a', label:'2a. Ruth is very __________ and always talks to everybody at the office.',
+            options:[{key:'friendly',text:'friendly'},{key:'efficient',text:'efficient'}],
+            correct:'friendly',
+            explanation:'Friendly = thân thiện, hòa đồng – phù hợp với việc hay nói chuyện với mọi người.'
+          },
+          {
+            id:'2b', label:'2b. Jacob is __________. He works quickly, and he does the work well.',
+            options:[{key:'friendly',text:'friendly'},{key:'efficient',text:'efficient'}],
+            correct:'efficient',
+            explanation:'Efficient = làm việc hiệu quả, nhanh chóng và đạt kết quả tốt.'
+          },
+          {
+            id:'3a', label:'3a. After his __________ job search, Mike starts work on Monday.',
+            options:[{key:'successful',text:'successful'},{key:'organized',text:'organized'}],
+            correct:'successful',
+            explanation:'Successful = thành công, đạt kết quả mong muốn. Tìm được việc rồi đi làm là kết quả thành công.'
+          },
+          {
+            id:'3b', label:'3b. Rita is __________. Her papers are always in the right place.',
+            options:[{key:'successful',text:'successful'},{key:'organized',text:'organized'}],
+            correct:'organized',
+            explanation:'Organized = ngăn nắp, có tổ chức – giấy tờ luôn đúng chỗ.'
+          }
+        ]
+      },
+      {
+        id:'u10-e4',
+        label:'Exercise ④',
+        source:true,
+        title:'Write an answer that is similar in meaning to the underlined part.',
+        type:'fill',
+        items:[
+          {
+            id:'1',
+            prompt:'Karen is a very trustworthy secretary.',
+            hint:'r - - i - - - e',
+            accept:['reliable'],
+            display:'reliable',
+            explanation:'Trustworthy và reliable đều diễn tả một người có thể được tin tưởng → reliable (đáng tin cậy).'
+          },
+          {
+            id:'2',
+            prompt:'Paul is qualified and he also has skills and knowledge from work in the past.',
+            hint:'e x - - r - - - e',
+            accept:['experience'],
+            display:'experience',
+            explanation:'Work experience = kinh nghiệm làm việc tích lũy được từ công việc trước đây → experience (kinh nghiệm).'
+          },
+          {
+            id:'3',
+            prompt:'Tom is knowledgeable about the new office computers.',
+            hint:'f a - - i - - w - -',
+            accept:['familiar with'],
+            display:'familiar with',
+            explanation:'Familiar with = quen thuộc với, am hiểu. Cụm này thường dùng với đối tượng mà ai đó biết rõ hoặc đã có kinh nghiệm sử dụng.'
+          },
+          {
+            id:'4',
+            prompt:'Cara is always respectful on the telephone.',
+            hint:'p o - i - -',
+            accept:['polite'],
+            display:'polite',
+            explanation:'Polite = lịch sự, mô tả cách cư xử nhã nhặn và tôn trọng người khác.'
+          }
+        ]
+      }
+    ],
+    openQuestions: [
+      {
+        id:'q7',
+        question:'What are the qualities of a good secretary?',
+        model:'A good secretary should be hard-working, organized, efficient, reliable, friendly and polite. They should also have good grammar, spelling and computer skills.',
+        vi:'Một thư ký giỏi nên chăm chỉ, ngăn nắp, làm việc hiệu quả, đáng tin cậy, thân thiện và lịch sự. Họ cũng nên có ngữ pháp, chính tả và kỹ năng máy tính tốt.',
+        hints:['hard-working: chăm chỉ','organized: ngăn nắp, có tổ chức','efficient: hiệu quả','reliable: đáng tin cậy','friendly: thân thiện','polite: lịch sự']
+      }
+    ]
+  },
+
+  /* ==================== UNIT 11 ==================== */
+  {
+    id: 'u11',
+    title: 'Unit 11. Departments',
+    summary: 'Các phòng ban trong công ty và nhiệm vụ của từng phòng ban.',
+    reading: {
+      blocks: [
+        { t:'h2', v:'4 Great Reasons to Join Smith-Owen' },
+        { t:'p', v:'At Smith-Owen, we’re always looking for new talent!' },
+        { t:'p', v:'1. Purchasing', cls:'sec-title' },
+        { t:'p', v:'Our purchasing department is an exciting place to work. Our employees search for products in many different countries.' },
+        { t:'p', v:'2. Marketing', cls:'sec-title' },
+        { t:'p', v:'Are you creative? Our marketing department has openings for talented graphic designers and writers.' },
+        { t:'p', v:'3. Sales', cls:'sec-title' },
+        { t:'p', v:'Our sales department needs people with good communication skills. Salespeople talk to clients and show them our great products.' },
+        { t:'p', v:'4. Human Resources', cls:'sec-title' },
+        { t:'p', v:'Our human resources department is the center of our talented team! It is responsible for hiring employees and employee benefits.' },
+        { t:'p', v:'Come join our company!' },
+        { t:'p', v:'Visit us at our Human Resources department, call 102-554-933, or email hr@smithowen.com to inquire about vacancies.' }
+      ]
+    },
+    comprehension: {
+      id:'u11-rc',
+      label:'Reading Comprehension',
+      title:'Đọc hiểu bài “4 Great Reasons to Join Smith-Owen”',
+      supplementary:true,
+      type:'choice',
+      items:[
+        {
+          id:'q1',
+          prompt:'How many reasons to join Smith-Owen are listed?',
+          options:[
+            { key:'A', text:'3' },
+            { key:'B', text:'4' },
+            { key:'C', text:'5' }
+          ],
+          correct:'B',
+          explanation:'Tiêu đề bài đọc là “4 Great Reasons to Join Smith-Owen” và liệt kê 4 phòng ban.'
+        },
+        {
+          id:'q2',
+          prompt:'What does the purchasing department do?',
+          options:[
+            { key:'A', text:'Search for products in many different countries' },
+            { key:'B', text:'Hire employees' },
+            { key:'C', text:'Design advertisements' }
+          ],
+          correct:'A',
+          explanation:'“Our employees search for products in many different countries.”'
+        },
+        {
+          id:'q3',
+          prompt:'Which department is responsible for hiring employees and employee benefits?',
+          options:[
+            { key:'A', text:'Marketing' },
+            { key:'B', text:'Sales' },
+            { key:'C', text:'Human Resources' }
+          ],
+          correct:'C',
+          explanation:'“It is responsible for hiring employees and employee benefits.” – Human Resources (Nhân sự).'
+        },
+        {
+          id:'q4',
+          prompt:'How can you inquire about vacancies?',
+          options:[
+            { key:'A', text:'Only by visiting the office in person' },
+            { key:'B', text:'By visiting the HR department, calling 102-554-933, or emailing hr@smithowen.com' },
+            { key:'C', text:'By writing a letter to the marketing department' }
+          ],
+          correct:'B',
+          explanation:'Bài đọc nêu ba cách: đến phòng Nhân sự, gọi 102-554-933, hoặc email hr@smithowen.com.'
+        }
+      ]
+    },
+    exercises: [
+      {
+        id:'u11-e3',
+        label:'Exercise ③',
+        source:true,
+        title:'Match the words (1–7) with the definitions (A–G).',
+        type:'select',
+        optionsIntro:'Các định nghĩa A–G:',
+        options:[
+          { key:'A', text:'A. the part of a company that buys new products' },
+          { key:'B', text:'B. a customer' },
+          { key:'C', text:'C. the part of a company that sells products' },
+          { key:'D', text:'D. the part of a company that hires people' },
+          { key:'E', text:'E. a section of a company' },
+          { key:'F', text:'F. the part of a company that advertises a product for sale' },
+          { key:'G', text:'G. a person who works for a company' }
+        ],
+        items:[
+          { id:'department', label:'department', correct:'E', explanation:'Department = một bộ phận, một mục trong công ty.' },
+          { id:'marketing', label:'marketing', correct:'F', explanation:'Marketing = bộ phận quảng bá sản phẩm để bán.' },
+          { id:'purchasing', label:'purchasing', correct:'A', explanation:'Purchasing = bộ phận mua sản phẩm hoặc vật tư.' },
+          { id:'human resources', label:'human resources', correct:'D', explanation:'Human resources = bộ phận phụ trách tuyển dụng nhân viên.' },
+          { id:'sales', label:'sales', correct:'C', explanation:'Sales = bộ phận bán sản phẩm.' },
+          { id:'employee', label:'employee', correct:'G', explanation:'Employee = người làm việc cho một công ty.' },
+          { id:'client', label:'client', correct:'B', explanation:'Client = khách hàng.' }
+        ]
+      },
+      {
+        id:'u11-e4',
+        label:'Exercise ④',
+        source:true,
+        title:'Fill in the blanks with the correct words from the word bank.',
+        type:'fill',
+        wordBank:['vacancy','talent','inquire'],
+        items:[
+          {
+            id:'1',
+            prompt:'The marketing department wants to find new __________.',
+            accept:['talent'],
+            display:'talent',
+            explanation:'Talent = nhân tài, người có năng lực. Phòng tiếp thị muốn tìm nhân tài mới.'
+          },
+          {
+            id:'2',
+            prompt:'The human resources department just filled the __________ for a secretary.',
+            accept:['vacancy'],
+            display:'vacancy',
+            explanation:'Vacancy = vị trí tuyển dụng còn trống. Phòng nhân sự vừa lấp đầy vị trí thư ký.'
+          },
+          {
+            id:'3',
+            prompt:'The advertisement says to contact the human resources department to __________ about vacancies.',
+            accept:['inquire','enquire'],
+            display:'inquire',
+            explanation:'Inquire about = hỏi thông tin về, tìm hiểu về. Quảng cáo nói liên hệ phòng nhân sự để hỏi về các vị trí trống.'
+          }
+        ]
+      }
+    ],
+    openQuestions: [
+      {
+        id:'q8',
+        question:'What departments are there at large companies?',
+        model:'Large companies usually have several departments, such as Purchasing, Marketing, Sales and Human Resources.',
+        vi:'Các công ty lớn thường có một số phòng ban, chẳng hạn như phòng Thu mua, phòng Tiếp thị, phòng Kinh doanh và phòng Nhân sự.',
+        hints:['large company: công ty lớn','department: phòng ban','Purchasing: thu mua','Marketing: tiếp thị','Sales: kinh doanh, bán hàng','Human Resources: nhân sự']
+      },
+      {
+        id:'q9',
+        question:'What do employees in those departments do?',
+        model:'Purchasing employees search for and buy products. Marketing employees advertise products. Sales employees communicate with clients and sell products. Human Resources employees hire staff and manage employee benefits.',
+        vi:'Nhân viên phòng Thu mua tìm kiếm và mua sản phẩm. Nhân viên phòng Tiếp thị quảng bá sản phẩm. Nhân viên phòng Kinh doanh giao tiếp với khách hàng và bán sản phẩm. Nhân viên phòng Nhân sự tuyển dụng nhân viên và quản lý các phúc lợi dành cho người lao động.',
+        hints:['search for products: tìm kiếm sản phẩm','advertise products: quảng cáo sản phẩm','communicate with clients: giao tiếp với khách hàng','hire staff: tuyển dụng nhân viên','employee benefits: phúc lợi nhân viên']
+      }
+    ]
+  }
+];
+
+/* ------------------- TIỆN ÍCH ------------------- */
+const STORAGE_KEY = 'officeEnglishProgress_v1';
+
+function esc(s){
+  return String(s == null ? '' : s).replace(/[&<>"']/g, c => (
+    {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]
+  ));
+}
+function norm(s){
+  return String(s == null ? '' : s)
+    .toLowerCase()
+    .replace(/[.,!?;:"'’`]/g,'')
+    .replace(/\s+/g,' ')
+    .trim();
+}
+function uidToUnit(uid){ return UNITS.find(u => u.id === uid); }
+
+/* ------------------- STATE ------------------- */
+let state = loadState();
+const uiState = { revealed: {}, models: {}, activeTab: {} };
+
+function loadState(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const parsed = JSON.parse(raw);
+      if(parsed && typeof parsed === 'object'){
+        if(!parsed.units) parsed.units = {};
+        return parsed;
+      }
+    }
+  }catch(e){ /* ignore */ }
+  return { units: {} };
+}
+function saveState(){
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+  catch(e){ console.warn('Không lưu được tiến độ:', e); }
+}
+function ensureUnit(uid){
+  if(!state.units[uid]) state.units[uid] = { lessonRead:false, exercises:{}, open:{} };
+  const u = state.units[uid];
+  if(!u.exercises) u.exercises = {};
+  if(!u.open) u.open = {};
+  if(typeof u.lessonRead !== 'boolean') u.lessonRead = false;
+  return u;
+}
+
+/* ------------------- TÍNH TIẾN ĐỘ ------------------- */
+function unitStats(unit){
+  const u = state.units[unit.id] || { lessonRead:false, exercises:{}, open:{} };
+  const allEx = [];
+  if(unit.comprehension) allEx.push(unit.comprehension);
+  unit.exercises.forEach(e => allEx.push(e));
+
+  const total = 1 + allEx.length + unit.openQuestions.length;
+  let done = u.lessonRead ? 1 : 0;
+  allEx.forEach(e => { if(u.exercises && u.exercises[e.id] && u.exercises[e.id].submitted) done++; });
+  unit.openQuestions.forEach(q => { if(u.open && u.open[q.id] && String(u.open[q.id]).trim()) done++; });
+
+  const pct = total ? Math.round(done / total * 100) : 0;
+  return { done, total, pct, allExercises: allEx };
+}
+
+/* ------------------- ROUTER ------------------- */
+const router = { view:'home', uid:null, tab:'lesson' };
+
+function go(view, opts){
+  router.view = view;
+  if(opts) Object.assign(router, opts);
+  window.scrollTo({ top:0, behavior:'instant' in window ? 'instant' : 'auto' });
+  render();
+}
+
+/* ------------------- RENDER CHÍNH ------------------- */
+const app = document.getElementById('app');
+
+function render(){
+  // cập nhật trạng thái nút nav
+  document.querySelectorAll('.nav-btn[data-nav]').forEach(b => {
+    b.classList.toggle('active', b.dataset.nav === router.view);
+  });
+
+  if(router.view === 'home'){ app.innerHTML = renderHome(); return; }
+  if(router.view === 'unit'){ app.innerHTML = renderUnit(router.uid, router.tab); return; }
+  if(router.view === 'dashboard'){ app.innerHTML = renderDashboard(); return; }
+}
+
+/* ------------------- TRANG CHỦ ------------------- */
+function renderHome(){
+  let html = `
+    <div class="page-head">
+      <h1>Office English</h1>
+      <p class="muted">5 bài học tiếng Anh chuyên ngành văn phòng – đọc, luyện bài tập, xem đáp án chi tiết và luyện trả lời câu hỏi mở.</p>
+    </div>
+    <div class="unit-grid">
+  `;
+
+  UNITS.forEach(unit => {
+    const st = unitStats(unit);
+    let badgeCls = 'new', badgeTxt = 'Chưa học';
+    if(st.pct === 100){ badgeCls = 'done'; badgeTxt = 'Hoàn thành'; }
+    else if(st.pct > 0){ badgeCls = 'doing'; badgeTxt = 'Đang học'; }
+
+    html += `
+      <div class="unit-card" data-open-unit="${unit.id}">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">
+          <h3>${esc(unit.title)}</h3>
+          <span class="badge ${badgeCls}">${badgeTxt}</span>
+        </div>
+        <div class="summary">${esc(unit.summary)}</div>
+        <div>
+          <div class="progress-label"><span>Tiến độ</span><span>${st.done}/${st.total} • ${st.pct}%</span></div>
+          <div class="progress-outer"><div class="progress-inner" style="width:${st.pct}%"></div></div>
+        </div>
+        <div class="muted" style="font-size:.82rem;">
+          📖 Bài đọc • ✅ Đọc hiểu • ✏️ ${unit.exercises.length} bài tập • 💬 ${unit.openQuestions.length} câu vận dụng
+        </div>
+      </div>
+    `;
+  });
+
+  html += `</div>
+    <div class="footer-note">Tiến độ được lưu tự động trong trình duyệt này (localStorage).</div>
+  `;
+  return html;
+}
+
+/* ------------------- TRANG UNIT ------------------- */
+function renderUnit(uid, tab){
+  const unit = uidToUnit(uid);
+  if(!unit) return '<p>Không tìm thấy bài học.</p>';
+  const st = unitStats(unit);
+  const u = ensureUnit(uid);
+  const activeTab = tab || 'lesson';
+
+  const tabs = [
+    { id:'lesson',    label:'📖 Bài đọc' },
+    { id:'reading',   label:'✅ Đọc hiểu' },
+    { id:'exercises', label:'✏️ Bài tập' },
+    { id:'answers',   label:'🔑 Đáp án chi tiết' },
+    { id:'practice',  label:'💬 Vận dụng' }
+  ];
+
+  let html = `
+    <button class="btn ghost small back-btn" data-nav="home">← Trang chủ</button>
+    <div class="page-head">
+      <h1>${esc(unit.title)}</h1>
+      <p class="muted">${esc(unit.summary)}</p>
+      <div style="margin-top:10px;">
+        <div class="progress-label"><span>Tiến độ bài học</span><span>${st.done}/${st.total} • ${st.pct}%</span></div>
+        <div class="progress-outer"><div class="progress-inner" style="width:${st.pct}%"></div></div>
+      </div>
+    </div>
+    <div class="tabs">
+      ${tabs.map(t => `<button class="tab ${activeTab===t.id?'active':''}" data-tab="${t.id}">${t.label}</button>`).join('')}
+    </div>
+    <div id="tab-content">
+  `;
+
+  if(activeTab === 'lesson')    html += renderLesson(unit, u);
+  if(activeTab === 'reading')   html += renderComprehension(unit, u);
+  if(activeTab === 'exercises') html += renderExercises(unit, u);
+  if(activeTab === 'answers')   html += renderAnswerKey(unit);
+  if(activeTab === 'practice')  html += renderPractice(unit, u);
+
+  html += `</div>`;
+  return html;
+}
+
+/* ---------- A. LESSON CONTENT ---------- */
+function renderLesson(unit, u){
+  let html = `<div class="card reading">`;
+  html += `<div class="read-banner">
+      <span class="tag src">Nội dung gốc</span>
+      <span>${u.lessonRead ? '✅ Bạn đã đánh dấu hoàn thành bài đọc này.' : 'Đánh dấu hoàn thành sau khi đọc xong.'}</span>
+      <button class="btn ${u.lessonRead?'ghost':'primary'} small" data-toggle-read="${unit.id}" style="margin-left:auto;">
+        ${u.lessonRead ? '↺ Bỏ đánh dấu' : '✓ Đánh dấu đã đọc'}
+      </button>
+    </div>`;
+
+  unit.reading.blocks.forEach(b => {
+    if(b.t === 'h2')       html += `<h2>${esc(b.v)}</h2>`;
+    else if(b.t === 'byline') html += `<p class="byline">${esc(b.v)}</p>`;
+    else if(b.t === 'p')   html += `<p class="${b.cls||''}">${esc(b.v)}</p>`;
+    else if(b.t === 'ul')  html += `<ul>${b.items.map(i => `<li>${esc(i)}</li>`).join('')}</ul>`;
+  });
+
+  html += `</div>`;
+  return html;
+}
+
+/* ---------- B. READING COMPREHENSION ---------- */
+function renderComprehension(unit, u){
+  if(!unit.comprehension){
+    return `<div class="card"><div class="empty-note">Bài học này chưa có phần đọc hiểu trong tài liệu gốc.<br>Phần này sẽ được bổ sung khi có nội dung.</div></div>`;
+  }
+  let html = `<div class="note">⚠️ Phần câu hỏi đọc hiểu dưới đây là <b>phần bổ sung</b> do ứng dụng tạo ra để luyện tập, <b>không có trong tài liệu gốc</b>. Nội dung bài đọc vẫn giữ nguyên.</div>`;
+  html += renderExerciseBlock(unit.comprehension, unit.id, true);
+  return html;
+}
+
+/* ---------- C. VOCABULARY EXERCISES ---------- */
+function renderExercises(unit, u){
+  let html = '';
+  unit.exercises.forEach(ex => {
+    html += renderExerciseBlock(ex, unit.id, false);
+  });
+  return html;
+}
+
+/* ---------- KHỐI BÀI TẬP DÙNG CHUNG ---------- */
+function renderExerciseBlock(ex, uid, isSupplementary){
+  const u = ensureUnit(uid);
+  const res = u.exercises[ex.id];
+  const revealed = uiState.revealed[ex.id] || false;
+
+  let html = `<div class="card exercise" data-ex="${ex.id}">`;
+  html += `<div class="ex-head">
+      <span class="tag ${isSupplementary?'sup':'src'}">${esc(ex.label)}</span>
+      ${isSupplementary ? '<span class="tag sup">Bổ sung</span>' : '<span class="tag src">Tài liệu gốc</span>'}
+      <h3>${esc(ex.title)}</h3>
+    </div>`;
+
+  if(ex.wordBank){
+    html += `<div class="option-list"><b>Word bank:</b> ${ex.wordBank.map(w => esc(w)).join(' · ')}</div>`;
+  }
+  if(ex.optionsIntro){
+    html += `<p class="muted" style="margin-bottom:8px;">${esc(ex.optionsIntro)}</p>`;
+  }
+  if(ex.options && ex.type === 'select' && !ex.items[0].options){
+    html += `<ul class="option-list">${ex.options.map(o => `<li>${esc(o.text)}</li>`).join('')}</ul>`;
+  }
+
+  html += `<div class="ex-body">`;
+
+  /* --- SELECT --- */
+  if(ex.type === 'select'){
+    ex.items.forEach(it => {
+      const opts = it.options || ex.options || [];
+      const d = res ? res.detail.find(x => x.id === it.id) : null;
+      const val = res ? (res.answers[it.id] || '') : '';
+      const cls = d ? (d.ok ? 'ok' : 'bad') : '';
+      html += `<div class="item ${cls}">
+        <div class="item-label">${esc(it.label)}</div>
+        <select data-item="${esc(it.id)}" ${res?'disabled':''}>
+          <option value="">— chọn đáp án —</option>
+          ${opts.map(o => `<option value="${esc(o.key)}" ${val===o.key?'selected':''}>${esc(o.text)}</option>`).join('')}
+        </select>
+        ${renderFeedback(d, res)}
+      </div>`;
+    });
+  }
+
+  /* --- FILL --- */
+  if(ex.type === 'fill'){
+    ex.items.forEach((it, idx) => {
+      const d = res ? res.detail.find(x => x.id === it.id) : null;
+      const val = res ? (res.answers[it.id] || '') : '';
+      const cls = d ? (d.ok ? 'ok' : 'bad') : '';
+      html += `<div class="item ${cls}">
+        <div class="item-label"><span class="num">${idx+1}.</span>${esc(it.prompt)}</div>
+        ${it.hint ? `<div class="muted" style="margin-bottom:6px;font-family:monospace;letter-spacing:1px;">${esc(it.hint)}</div>` : ''}
+        <input type="text" data-item="${esc(it.id)}" value="${esc(val)}" placeholder="Nhập từ tiếng Anh..." ${res?'disabled':''} autocomplete="off" spellcheck="false">
+        ${renderFeedback(d, res)}
+      </div>`;
+    });
+  }
+
+  /* --- CHOICE --- */
+  if(ex.type === 'choice'){
+    ex.items.forEach((it, idx) => {
+      const d = res ? res.detail.find(x => x.id === it.id) : null;
+      const val = res ? (res.answers[it.id] || '') : '';
+      html += `<div class="item">
+        <div class="item-label"><span class="num">${idx+1}.</span>${esc(it.prompt)}</div>`;
+      it.options.forEach(o => {
+        let optCls = '';
+        if(res){
+          if(o.key === it.correct) optCls = 'correct';
+          else if(o.key === val) optCls = 'wrong';
+        }
+        html += `<label class="opt-row ${optCls}">
+          <input type="radio" name="${esc(ex.id)}-${esc(it.id)}" value="${esc(o.key)}" ${val===o.key?'checked':''} ${res?'disabled':''}>
+          <span>${esc(o.text)}</span>
+        </label>`;
+      });
+      html += renderFeedback(d, res) + `</div>`;
+    });
+  }
+
+  html += `</div>`;
+
+  /* --- SCORE --- */
+  if(res){
+    const pct = res.total ? Math.round(res.score / res.total * 100) : 0;
+    html += `<div class="score-box">
+      <span>Kết quả:</span>
+      <b>${res.score}/${res.total}</b>
+      <span class="badge ${pct===100?'done':'doing'}">${pct}%</span>
+      <span class="muted">${pct===100?'Xuất sắc!':(pct>=60?'Khá tốt, xem lại các câu sai nhé.':'Hãy xem giải thích và làm lại.')}</span>
+    </div>`;
+  }
+
+  /* --- ACTIONS --- */
+  html += `<div class="ex-actions">`;
+  if(!res){
+    html += `<button class="btn primary" data-check="${ex.id}">Kiểm tra đáp án</button>`;
+    html += `<button class="btn ghost" data-reveal="${ex.id}">${revealed?'Ẩn đáp án':'Xem đáp án & giải thích'}</button>`;
+  }else{
+    html += `<button class="btn ghost" data-retry="${ex.id}">↺ Làm lại</button>`;
+  }
+  html += `</div>`;
+
+  /* --- EXPLANATION BLOCK --- */
+  if(revealed || res){
+    html += `<div class="card" style="box-shadow:none;background:#f8fbfd;margin-top:12px;border-style:dashed;">
+      <h3 style="margin-top:0;">🔑 Đáp án &amp; giải thích chi tiết</h3>`;
+    ex.items.forEach((it, idx) => {
+      const label = it.label || it.prompt || ('Câu ' + (idx+1));
+      const correct = it.display || it.correct;
+      html += `<div class="answer-key-item">
+        <div class="ak-q">${idx+1}. ${esc(label)}</div>
+        <div class="ak-a">→ ${esc(correct)}</div>
+        <div class="ak-exp">${esc(it.explanation || '')}</div>
+        ${renderWrongExplanation(it)}
+      </div>`;
+    });
+    html += `</div>`;
+  }
+
+  html += `</div>`;
+  return html;
+}
+
+function renderFeedback(d, res){
+  if(!res || !d) return '';
+  if(d.ok){
+    return `<div class="fb ok">✓ Chính xác!</div>`;
+  }
+  return `<div class="fb bad">✗ Chưa đúng. Câu trả lời của bạn: <b>${esc(d.user || '(bỏ trống)')}</b> — Đáp án đúng: <b>${esc(d.correct)}</b>
+    <div class="exp">${esc(d.explanation || '')}</div></div>`;
+}
+
+function renderWrongExplanation(it){
+  if(!it.wrongExplanations) return '';
+  let html = `<div class="ak-exp" style="margin-top:5px;">`;
+  Object.keys(it.wrongExplanations).forEach(k => {
+    html += `• Vì sao <b>${esc(k)}</b> không phù hợp: ${esc(it.wrongExplanations[k])}<br>`;
+  });
+  html += `</div>`;
+  return html;
+}
+
+/* ---------- D. DETAILED ANSWER KEY ---------- */
+function renderAnswerKey(unit){
+  const allEx = [];
+  if(unit.comprehension) allEx.push(unit.comprehension);
+  unit.exercises.forEach(e => allEx.push(e));
+
+  let html = `<div class="card">
+    <h2>🔑 Đáp án chi tiết – ${esc(unit.title)}</h2>
+    <p class="muted">Phần này cho phép bạn mở đáp án bất cứ lúc nào để tự học. Phần giải thích bằng tiếng Việt được viết để hỗ trợ ôn tập.</p>
+  </div>`;
+
+  allEx.forEach(ex => {
+    html += `<div class="card">
+      <div class="ex-head">
+        <span class="tag ${ex.supplementary?'sup':'src'}">${esc(ex.label)}</span>
+        <h3>${esc(ex.title)}</h3>
+      </div>`;
+    ex.items.forEach((it, idx) => {
+      const label = it.label || it.prompt || ('Câu ' + (idx+1));
+      const correct = it.display || it.correct;
+      html += `<div class="answer-key-item">
+        <div class="ak-q">${idx+1}. ${esc(label)}</div>
+        <div class="ak-a">→ ${esc(correct)}</div>
+        <div class="ak-exp">${esc(it.explanation || '')}</div>
+        ${renderWrongExplanation(it)}
+      </div>`;
+    });
+    html += `</div>`;
+  });
+
+  return html;
+}
+
+/* ---------- E. SPEAKING & APPLICATION ---------- */
+function renderPractice(unit, u){
+  let html = `<div class="card">
+    <h2>💬 Luyện tập vận dụng</h2>
+    <p class="muted">Viết câu trả lời bằng tiếng Anh theo ý của bạn. Câu trả lời mẫu chỉ mang tính tham khảo — bạn không bắt buộc phải viết giống hoàn toàn, miễn đúng ngữ pháp và phù hợp với câu hỏi.</p>
+  </div>`;
+
+  unit.openQuestions.forEach((q, idx) => {
+    const saved = (u.open && u.open[q.id]) ? u.open[q.id] : '';
+    const showModel = uiState.models[q.id] || false;
+
+    html += `<div class="card">
+      <div class="item-label"><span class="num">${idx+1}.</span>${esc(q.question)}</div>
+      <textarea data-open="${esc(q.id)}" placeholder="Viết câu trả lời của bạn bằng tiếng Anh...">${esc(saved)}</textarea>
+      <div class="ex-actions">
+        <button class="btn primary small" data-save-open="${esc(q.id)}">💾 Lưu câu trả lời</button>
+        <button class="btn ghost small" data-model="${esc(q.id)}">${showModel?'Ẩn câu trả lời mẫu':'Xem câu trả lời mẫu'}</button>
+      </div>
+      ${saved ? `<div class="muted" style="margin-top:8px;font-size:.82rem;">✓ Đã lưu câu trả lời của bạn.</div>` : ''}
+      ${showModel ? `
+        <div class="model-answer">
+          <div class="en">${esc(q.model)}</div>
+          <div class="vi">${esc(q.vi)}</div>
+          ${q.hints ? `<div class="hints"><b>Từ vựng / gợi ý:</b><ul>${q.hints.map(h => `<li>${esc(h)}</li>`).join('')}</ul></div>` : ''}
+          ${q.note ? `<div class="hints" style="color:#8a6a1f;">📌 ${esc(q.note)}</div>` : ''}
+        </div>` : ''}
+    </div>`;
+  });
+
+  return html;
+}
+
+/* ------------------- DASHBOARD ------------------- */
+function renderDashboard(){
+  const totalUnits = UNITS.length;
+  let unitsStarted = 0, unitsDone = 0;
+  let totalExDone = 0, totalExCount = 0;
+  let totalScore = 0, totalPossible = 0;
+  const wrongList = [];
+  const incomplete = [];
+
+  UNITS.forEach(unit => {
+    const st = unitStats(unit);
+    const u = state.units[unit.id] || { exercises:{}, open:{}, lessonRead:false };
+    if(st.pct > 0) unitsStarted++;
+    if(st.pct === 100) unitsDone++;
+    if(st.pct < 100) incomplete.push({ unit, st });
+
+    st.allExercises.forEach(ex => {
+      totalExCount++;
+      const r = u.exercises && u.exercises[ex.id];
+      if(r && r.submitted){
+        totalExDone++;
+        totalScore += r.score;
+        totalPossible += r.total;
+        r.detail.forEach(d => {
+          if(!d.ok){
+            wrongList.push({
+              unitId: unit.id,
+              unitTitle: unit.title,
+              exId: ex.id,
+              exLabel: ex.label,
+              q: d.label,
+              user: d.user,
+              correct: d.correct,
+              explanation: d.explanation
+            });
+          }
+        });
+      }
+    });
+  });
+
+  const accuracy = totalPossible ? Math.round(totalScore / totalPossible * 100) : 0;
+
+  let html = `<div class="page-head">
+    <h1>📊 Tiến độ học tập</h1>
+    <p class="muted">Dữ liệu được lưu trên trình duyệt và thiết bị hiện tại (localStorage). Không đồng bộ giữa các thiết bị.</p>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat"><div class="num">${unitsDone}/${totalUnits}</div><div class="lbl">Unit hoàn thành</div></div>
+    <div class="stat"><div class="num">${unitsStarted}</div><div class="lbl">Unit đã bắt đầu</div></div>
+    <div class="stat"><div class="num">${totalExDone}/${totalExCount}</div><div class="lbl">Bài tập đã nộp</div></div>
+    <div class="stat"><div class="num">${accuracy}%</div><div class="lbl">Tỷ lệ đúng</div></div>
+  </div>
+  `;
+
+  /* Tiến độ từng unit */
+  html += `<div class="card"><h2>Tiến độ từng Unit</h2>`;
+  UNITS.forEach(unit => {
+    const st = unitStats(unit);
+    const u = state.units[unit.id] || { exercises:{} };
+    let scoreTxt = '—';
+    let sc = 0, sp = 0;
+    st.allExercises.forEach(ex => {
+      const r = u.exercises && u.exercises[ex.id];
+      if(r && r.submitted){ sc += r.score; sp += r.total; }
+    });
+    if(sp > 0) scoreTxt = `${sc}/${sp}`;
+    html += `<div style="margin-bottom:14px;cursor:pointer;" data-open-unit="${unit.id}">
+      <div class="progress-label">
+        <span><b>${esc(unit.title)}</b></span>
+        <span>${st.done}/${st.total} • ${st.pct}% • Điểm: ${scoreTxt}</span>
+      </div>
+      <div class="progress-outer"><div class="progress-inner" style="width:${st.pct}%"></div></div>
+    </div>`;
+  });
+  html += `</div>`;
+
+  /* Bài chưa hoàn thành */
+  html += `<div class="card"><h2>Bài chưa hoàn thành</h2>`;
+  if(incomplete.length === 0){
+    html += `<div class="empty-note">🎉 Tuyệt vời! Bạn đã hoàn thành tất cả các Unit.</div>`;
+  }else{
+    incomplete.forEach(({unit, st}) => {
+      html += `<div class="wrong-item" data-open-unit="${unit.id}">
+        <div class="q">${esc(unit.title)}</div>
+        <div class="muted">Còn ${st.total - st.done} mục chưa hoàn thành (${st.pct}% đã xong).</div>
+      </div>`;
+    });
+  }
+  html += `</div>`;
+
+  /* Câu trả lời sai */
+  html += `<div class="card"><h2>Câu trả lời sai (${wrongList.length})</h2>`;
+  if(wrongList.length === 0){
+    html += `<div class="empty-note">Chưa có câu trả lời sai nào được ghi nhận. Hãy làm bài tập để hệ thống theo dõi.</div>`;
+  }else{
+    wrongList.forEach(w => {
+      html += `<div class="wrong-item" data-open-unit="${w.unitId}">
+        <div class="q">${esc(w.unitTitle)} – ${esc(w.exLabel)}</div>
+        <div class="muted" style="margin-bottom:5px;">${esc(w.q)}</div>
+        <div class="a">✗ Bạn trả lời: ${esc(w.user || '(bỏ trống)')}</div>
+        <div class="c">✓ Đáp án đúng: ${esc(w.correct)}</div>
+        <div class="muted" style="font-size:.83rem;margin-top:4px;">${esc(w.explanation || '')}</div>
+      </div>`;
+    });
+  }
+  html += `</div>`;
+
+  return html;
+}
+
+/* ------------------- XỬ LÝ SỰ KIỆN ------------------- */
+app.addEventListener('click', function(e){
+  const t = e.target;
+
+  /* Điều hướng chung */
+  const navBtn = t.closest('[data-nav]');
+  if(navBtn){
+    go(navBtn.dataset.nav);
+    return;
+  }
+
+  /* Mở Unit */
+  const openUnit = t.closest('[data-open-unit]');
+  if(openUnit){
+    go('unit', { uid: openUnit.dataset.openUnit, tab:'lesson' });
+    return;
+  }
+
+  /* Chuyển tab */
+  const tabBtn = t.closest('[data-tab]');
+  if(tabBtn){
+    const uid = router.uid;
+    router.tab = tabBtn.dataset.tab;
+    render();
+    return;
+  }
+
+  /* Đánh dấu đã đọc */
+  const readBtn = t.closest('[data-toggle-read]');
+  if(readBtn){
+    const uid = readBtn.dataset.toggleRead;
+    const u = ensureUnit(uid);
+    u.lessonRead = !u.lessonRead;
+    saveState();
+    render();
+    return;
+  }
+
+  /* Kiểm tra đáp án */
+  const checkBtn = t.closest('[data-check]');
+  if(checkBtn){
+    const exId = checkBtn.dataset.check;
+    const unit = uidToUnit(router.uid);
+    const ex = unit.exercises.concat(unit.comprehension ? [unit.comprehension] : []).find(x => x.id === exId);
+    if(ex) gradeExercise(ex, router.uid);
+    return;
+  }
+
+  /* Xem đáp án */
+  const revealBtn = t.closest('[data-reveal]');
+  if(revealBtn){
+    const exId = revealBtn.dataset.reveal;
+    uiState.revealed[exId] = !uiState.revealed[exId];
+    render();
+    return;
+  }
+
+  /* Làm lại */
+  const retryBtn = t.closest('[data-retry]');
+  if(retryBtn){
+    const exId = retryBtn.dataset.retry;
+    const u = ensureUnit(router.uid);
+    delete u.exercises[exId];
+    uiState.revealed[exId] = false;
+    saveState();
+    render();
+    return;
+  }
+
+  /* Lưu câu trả lời mở */
+  const saveOpen = t.closest('[data-save-open]');
+  if(saveOpen){
+    const qid = saveOpen.dataset.saveOpen;
+    const ta = document.querySelector(`textarea[data-open="${CSS.escape(qid)}"]`);
+    const u = ensureUnit(router.uid);
+    u.open[qid] = ta ? ta.value : '';
+    saveState();
+    render();
+    return;
+  }
+
+  /* Xem câu trả lời mẫu */
+  const modelBtn = t.closest('[data-model]');
+  if(modelBtn){
+    const qid = modelBtn.dataset.model;
+    uiState.models[qid] = !uiState.models[qid];
+    render();
+    return;
+  }
+
+  /* Chọn đáp án trắc nghiệm -> đổi màu */
+  const optRow = t.closest('.opt-row');
+  if(optRow && !optRow.querySelector('input').disabled){
+    const name = optRow.querySelector('input').name;
+    document.querySelectorAll(`input[name="${CSS.escape(name)}"]`).forEach(i => {
+      i.closest('.opt-row').classList.toggle('selected', i.checked);
+    });
+  }
+});
+
+/* Đổi màu khi chọn radio bằng bàn phím */
+app.addEventListener('change', function(e){
+  if(e.target.type === 'radio'){
+    const name = e.target.name;
+    document.querySelectorAll(`input[name="${CSS.escape(name)}"]`).forEach(i => {
+      i.closest('.opt-row').classList.toggle('selected', i.checked);
+    });
+  }
+});
+
+/* Reset tiến độ */
+document.getElementById('resetBtn').addEventListener('click', function(){
+  const ok = window.confirm('Bạn có chắc muốn xóa toàn bộ tiến độ học tập? Hành động này không thể hoàn tác.');
+  if(!ok) return;
+  localStorage.removeItem(STORAGE_KEY);
+  state = { units: {} };
+  uiState.revealed = {};
+  uiState.models = {};
+  go('home');
+});
+
+/* ------------------- CHẤM ĐIỂM ------------------- */
+function gradeExercise(ex, uid){
+  const el = document.querySelector(`.exercise[data-ex="${CSS.escape(ex.id)}"]`);
+  if(!el) return;
+
+  const answers = {};
+
+  if(ex.type === 'select'){
+    el.querySelectorAll('select[data-item]').forEach(s => {
+      answers[s.dataset.item] = s.value;
+    });
+  } else if(ex.type === 'fill'){
+    el.querySelectorAll('input[data-item]').forEach(i => {
+      answers[i.dataset.item] = i.value;
+    });
+  } else if(ex.type === 'choice'){
+    ex.items.forEach(it => {
+      const checked = el.querySelector(`input[name="${CSS.escape(ex.id + '-' + it.id)}"]:checked`);
+      answers[it.id] = checked ? checked.value : '';
+    });
+  }
+
+  let correct = 0;
+  const detail = [];
+
+  ex.items.forEach(it => {
+    const user = answers[it.id] || '';
+    let ok;
+    if(ex.type === 'fill'){
+      const accepted = it.accept || [it.display];
+      ok = accepted.some(a => norm(a) === norm(user));
+    }else{
+      ok = norm(user) === norm(it.correct);
+    }
+    if(ok) correct++;
+
+    detail.push({
+      id: it.id,
+      label: it.label || it.prompt || it.id,
+      user: user,
+      correct: it.display || it.correct,
+      ok: ok,
+      explanation: it.explanation || ''
+    });
+  });
+
+  const u = ensureUnit(uid);
+  u.exercises[ex.id] = {
+    submitted: true,
+    score: correct,
+    total: ex.items.length,
+    answers: answers,
+    detail: detail,
+    ts: Date.now()
+  };
+  saveState();
+  render();
+}
+
+/* ------------------- KHỞI ĐỘNG ------------------- */
+render();
+</script>
+</body>
+</html>
